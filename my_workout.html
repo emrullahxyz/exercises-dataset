@@ -603,6 +603,7 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       .header { padding: 12px 16px; }
+      .header-meta .badge { display: none; }
       .main { padding: 20px 16px 60px; }
       .session-header { flex-direction: column; }
       .exercise-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
@@ -680,7 +681,6 @@
     <button class="day-tab" data-day="upperB">🔴 Upper B — Çekiş</button>
     <button class="day-tab" data-day="lowerA">🟢 Lower A — Quad</button>
     <button class="day-tab" data-day="lowerB">🟠 Lower B — Posterior</button>
-    <button class="day-tab squash" data-day="squash">🎾 Squash</button>
   </div>
 
   <!-- Progress bar -->
@@ -816,8 +816,7 @@ const PLAN = {
       { name: 'lever back extension',      sets: '3×12–15',           label: 'Alt sırt & kalça' },
       { name: 'cable twist',               sets: '3×15 (her taraf)',   label: 'Obliques' },
     ]
-  },
-  squash: null
+  }
 };
 
 // ── STATE ──
@@ -921,26 +920,6 @@ function renderSession(dayKey) {
   });
 }
 
-// ── SQUASH VIEW ──
-function renderSquash() {
-  document.getElementById('sessionTitle').textContent = '🎾 Squash Günü';
-  document.getElementById('sessionSub').textContent   = 'Aktif toparlanma ve kardiyovasküler kapasite';
-  document.getElementById('sessionStats').innerHTML   = `
-    <div class="stat-pill"><div class="stat-val">~60</div><div class="stat-lbl">Dk</div></div>
-    <div class="stat-pill"><div class="stat-val">Cuma</div><div class="stat-lbl">Gün</div></div>
-  `;
-  document.getElementById('progressLabel').textContent = 'Squash — Aktif Dinlenme';
-  document.getElementById('progressPct').textContent   = 'Kardio + Toparlanma';
-  document.getElementById('progressFill').style.width  = '100%';
-
-  document.getElementById('exerciseGrid').innerHTML = `
-    <div class="squash-view" style="grid-column:1/-1">
-      <div class="squash-emoji">🎾</div>
-      <div class="squash-title">Squash Günü</div>
-      <div class="squash-sub">Aktif toparlanma ve kardiyovasküler kapasite için spor salonu dışı branş antrenmanı. Squash öncesi hafif karbonhidrat + elektrolit al.</div>
-    </div>
-  `;
-}
 
 // ── EXERCISE MODAL ──
 function openModal(data, planEx) {
@@ -1066,12 +1045,7 @@ document.getElementById('dayTabs').addEventListener('click', e => {
   document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   currentDay = btn.dataset.day;
-
-  if (currentDay === 'squash') {
-    renderSquash();
-  } else {
-    renderSession(currentDay);
-  }
+  renderSession(currentDay);
 });
 
 // ── MODAL CLOSE ──
