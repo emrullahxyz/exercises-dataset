@@ -646,7 +646,13 @@
       border-radius: 4px;
       transition: width 0.6s cubic-bezier(.4,0,.2,1);
     }
-  </style>
+  
+    .ex-img-wrap, .ex-card, .ex-card * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      outline: none;
+    }
+</style>
 </head>
 <body>
 
@@ -2748,6 +2754,7 @@ const PLAN = {
 };
 
 // ── STATE ──
+let currentlyPlayingGifStopFn = null;
 let currentDay = 'upperA';
 let currentLang = 'tr';
 let currentExercise = null;
@@ -2817,7 +2824,18 @@ function renderSession(dayKey) {
 
     imgWrap.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (imgEl.dataset.playing === 'true') return;
+      
+      if (imgEl.dataset.playing === 'true') {
+        if (currentlyPlayingGifStopFn === stopFn) {
+           currentlyPlayingGifStopFn();
+        }
+        return;
+      }
+      
+      if (currentlyPlayingGifStopFn) {
+        currentlyPlayingGifStopFn();
+      }
+
       imgEl.dataset.playing = 'true';
       playEl.style.opacity = '0';
 
@@ -2826,18 +2844,29 @@ function renderSession(dayKey) {
       
       let loopCount = 0;
       const totalLoops = 2;
-      const loopDuration = 3500; // 3.5 seconds per loop
+      const loopDuration = 3500;
+      let timeoutId = null;
+
+      const stopFn = () => {
+        clearTimeout(timeoutId);
+        imgEl.src = jpgUrl;
+        playEl.style.opacity = '';
+        imgEl.dataset.playing = 'false';
+        if (currentlyPlayingGifStopFn === stopFn) {
+          currentlyPlayingGifStopFn = null;
+        }
+      };
+
+      currentlyPlayingGifStopFn = stopFn;
 
       function playNextLoop() {
         if (loopCount >= totalLoops) {
-          imgEl.src = jpgUrl;
-          playEl.style.opacity = '';
-          imgEl.dataset.playing = 'false';
+          stopFn();
           return;
         }
         imgEl.src = gifUrlBase + "?t=" + new Date().getTime();
         loopCount++;
-        setTimeout(playNextLoop, loopDuration);
+        timeoutId = setTimeout(playNextLoop, loopDuration);
       }
 
       playNextLoop();
