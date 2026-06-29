@@ -614,7 +614,9 @@
       .exercise-grid { grid-template-columns: repeat(2, 1fr); }
       .modal-panel { border-radius: var(--r-xl) var(--r-xl) 0 0; }
       .modal-overlay { align-items: flex-end; padding: 0; }
-      .header-meta { display: none; }
+      .header-meta .badge { display: none; }
+      .btn-plan { font-size: 11px; padding: 6px 10px; }
+      .btn-plan svg { width: 14px; height: 14px; }
     }
 
     /* ── PROGRESS BAR ── */
@@ -888,14 +890,30 @@ function renderSession(dayKey) {
 
     imgWrap.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (imgEl.src.includes('.gif')) return;
-      const t = new Date().getTime();
-      imgEl.src = "https://raw.githubusercontent.com/emrullahxyz/exercises-dataset/main/" + data.gif_url + "?t=" + t;
+      if (imgEl.dataset.playing === 'true') return;
+      imgEl.dataset.playing = 'true';
       playEl.style.opacity = '0';
-      setTimeout(() => {
-        imgEl.src = "https://raw.githubusercontent.com/emrullahxyz/exercises-dataset/main/" + data.image;
-        playEl.style.opacity = '';
-      }, 12000);
+
+      const gifUrlBase = "https://raw.githubusercontent.com/emrullahxyz/exercises-dataset/main/" + data.gif_url;
+      const jpgUrl = "https://raw.githubusercontent.com/emrullahxyz/exercises-dataset/main/" + data.image;
+      
+      let loopCount = 0;
+      const totalLoops = 3;
+      const loopDuration = 3500; // 3.5 seconds per loop
+
+      function playNextLoop() {
+        if (loopCount >= totalLoops) {
+          imgEl.src = jpgUrl;
+          playEl.style.opacity = '';
+          imgEl.dataset.playing = 'false';
+          return;
+        }
+        imgEl.src = gifUrlBase + "?t=" + new Date().getTime();
+        loopCount++;
+        setTimeout(playNextLoop, loopDuration);
+      }
+
+      playNextLoop();
     });
 
     infoWrap.addEventListener('click', () => openModal(data, ex));
