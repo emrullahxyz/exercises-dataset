@@ -852,7 +852,7 @@
           <span>Notlar</span>
           <div>
             <span id="notesStatus" class="loader-mini" style="margin-right: 8px;"></span>
-            <button class="btn-icon" id="btnAddSetRow" title="Set Ekle">🏋️ +</button>
+            
             <button class="btn-icon" id="btnAddNoteText" title="Serbest Not Ekle">📝 +</button>
           </div>
         </div>
@@ -3020,6 +3020,7 @@ function openModal(data, planEx) {
   document.getElementById('modalTitle').textContent = data.name;
   document.getElementById('modalGif').src = "https://raw.githubusercontent.com/emrullahxyz/exercises-dataset/main/" + data.gif_url;
   document.getElementById('modalGif').alt = data.name;
+  if(typeof fetchNotes === "function") fetchNotes(data.name, planEx.sets);
 
   // Meta chips
   document.getElementById('modalMeta').innerHTML = [
@@ -3107,6 +3108,145 @@ function closeModal() {
   setTimeout(() => {
     document.getElementById('modalGif').src = '';
   }, 250);
+}
+
+
+// ── NOTES LOGIC ──
+let currentNoteData = { sets: [], note: "" };
+let currentExerciseId = null;
+let saveDebounceTimer = null;
+let defaultNumSets = 1;
+
+const API_URL = "https://emrullah.xyz/api/workout/notes/";
+
+async function fetchNotes(exercise_id, setsString) {
+  currentExerciseId = exercise_id;
+  defaultNumSets = parseInt(setsString) || 1;
+  currentNoteData = { sets: [], note: "" };
+  
+  const statusEl = document.getElementById('notesStatus');
+  if(statusEl) statusEl.textContent = "Yükleniyor...";
+  
+  renderNotesUI();
+
+  try {
+    const res = await fetch(API_URL + encodeURIComponent(exercise_id));
+    if (res.ok) {
+      const result = await res.json();
+      if (result.success && result.data) {
+        currentNoteData = result.data;
+        if (!currentNoteData.sets) currentNoteData.sets = [];
+        if (!currentNoteData.note) currentNoteData.note = "";
+      }
+    }
+    
+    // Auto-populate default sets if empty
+    if (currentNoteData.sets.length === 0) {
+      for(let i=0; i<defaultNumSets; i++) {
+        currentNoteData.sets.push({kg: "", reps: ""});
+      }
+    }
+
+    if(statusEl) statusEl.textContent = "";
+  } catch (e) {
+    if(statusEl) statusEl.textContent = "Hata!";
+  }
+  renderNotesUI();
+}
+
+function scheduleSave() {
+  const statusEl = document.getElementById('notesStatus');
+  if(statusEl) statusEl.textContent = "Kaydediliyor...";
+  if (saveDebounceTimer) clearTimeout(saveDebounceTimer);
+  saveDebounceTimer = setTimeout(async () => {
+    try {
+      const res = await fetch(API_URL + encodeURIComponent(currentExerciseId), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(currentNoteData)
+      });
+      if (res.ok) {
+        if(statusEl) statusEl.textContent = "Kaydedildi ✅";
+        setTimeout(() => { if(statusEl && statusEl.textContent.includes("✅")) statusEl.textContent = ""; }, 2000);
+      } else {
+        if(statusEl) statusEl.textContent = "Hata!";
+      }
+    } catch(e) {
+      if(statusEl) statusEl.textContent = "Hata!";
+    }
+  }, 1000);
+}
+
+function renderNotesUI() {
+  const setRowsContainer = document.getElementById('setRowsContainer');
+  const notesTextContainer = document.getElementById('notesTextContainer');
+  const notesTextarea = document.getElementById('notesTextarea');
+
+  if(setRowsContainer) {
+    setRowsContainer.innerHTML = '';
+    currentNoteData.sets.forEach((setObj, index) => {
+      const row = document.createElement('div');
+      row.className = 'set-row';
+      row.innerHTML = `
+        <span style="font-size:11px; font-weight:700; color:var(--text3); width:20px;">${index+1}.</span>
+        <input type="number" class="set-input" placeholder="Kg" value="${setObj.kg || ''}" data-idx="${index}" data-key="kg" />
+        <input type="number" class="set-input" placeholder="Tekrar" value="${setObj.reps || ''}" data-idx="${index}" data-key="reps" />
+      `;
+      setRowsContainer.appendChild(row);
+    });
+
+    // Attach events for inputs
+    setRowsContainer.querySelectorAll('.set-input').forEach(inp => {
+      inp.addEventListener('input', (e) => {
+        const idx = e.target.getAttribute('data-idx');
+        const key = e.target.getAttribute('data-key');
+        currentNoteData.sets[idx][key] = e.target.value;
+        scheduleSave();
+      });
+    });
+  }
+
+  if(notesTextContainer && notesTextarea) {
+    if (currentNoteData.note !== "") {
+      notesTextContainer.style.display = 'block';
+      notesTextarea.value = currentNoteData.note;
+    } else {
+      notesTextContainer.style.display = 'none';
+      notesTextarea.value = "";
+    }
+  }
+}
+
+const btnAddNoteText = document.getElementById('btnAddNoteText');
+if(btnAddNoteText) {
+  btnAddNoteText.addEventListener('click', () => {
+    if (currentNoteData.note === "") {
+      currentNoteData.note = " "; // trigger display
+      renderNotesUI();
+      const ta = document.getElementById('notesTextarea');
+      if(ta) ta.focus();
+    }
+  });
+}
+
+const notesTextarea = document.getElementById('notesTextarea');
+if(notesTextarea) {
+  notesTextarea.addEventListener('input', (e) => {
+    currentNoteData.note = e.target.value;
+    scheduleSave();
+  });
+}
+
+const btnRemoveNoteText = document.getElementById('btnRemoveNoteText');
+if(btnRemoveNoteText) {
+  btnRemoveNoteText.addEventListener('click', () => {
+    if (currentNoteData.note.trim() !== "") {
+      if (!confirm("Serbest notu silmek istediğinize emin misiniz?")) return;
+    }
+    currentNoteData.note = "";
+    renderNotesUI();
+    scheduleSave();
+  });
 }
 
 // ── PLAN IMAGE OVERLAY ──
