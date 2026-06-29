@@ -665,6 +665,111 @@
       user-select: none;
       outline: none;
     }
+
+    /* ── NOTES UI ── */
+    .modal-mid-row {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 16px 20px 0;
+    }
+    @media (min-width: 600px) {
+      .modal-mid-row {
+        flex-direction: row;
+        align-items: stretch;
+      }
+      .modal-mid-row > * {
+        flex: 1;
+        margin: 0 !important;
+      }
+    }
+    .modal-notes {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .notes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .set-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .set-input {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      color: var(--text1);
+      padding: 4px 6px;
+      font-size: 13px;
+      width: 100%;
+      text-align: center;
+    }
+    .set-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .btn-icon {
+      background: none;
+      border: none;
+      color: var(--text3);
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .btn-icon:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--text1);
+    }
+    .notes-textarea-wrap {
+      position: relative;
+      margin-top: 4px;
+    }
+    .notes-textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      color: var(--text1);
+      padding: 8px;
+      font-size: 13px;
+      resize: vertical;
+      min-height: 50px;
+      font-family: inherit;
+    }
+    .notes-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .close-textarea {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 10px;
+      cursor: pointer;
+      padding: 2px 5px;
+    }
+    .close-textarea:hover { background: var(--orange); }
+    .loader-mini {
+      font-size: 10px;
+      color: var(--accent);
+    }
 </style>
 </head>
 <body>
@@ -740,7 +845,24 @@
       <img class="modal-gif" id="modalGif" alt="" />
     </div>
     <div class="modal-meta" id="modalMeta"></div>
-    <div class="modal-plan-info" id="modalPlanInfo"></div>
+    <div class="modal-mid-row" id="modalMidRow">
+      <div class="modal-plan-info" id="modalPlanInfo"></div>
+      <div class="modal-notes" id="modalNotes">
+        <div class="notes-header">
+          <span>Notlar</span>
+          <div>
+            <span id="notesStatus" class="loader-mini" style="margin-right: 8px;"></span>
+            <button class="btn-icon" id="btnAddSetRow" title="Set Ekle">🏋️ +</button>
+            <button class="btn-icon" id="btnAddNoteText" title="Serbest Not Ekle">📝 +</button>
+          </div>
+        </div>
+        <div id="setRowsContainer" style="display:flex; flex-direction:column; gap:6px;"></div>
+        <div id="notesTextContainer" style="display:none;" class="notes-textarea-wrap">
+          <textarea id="notesTextarea" class="notes-textarea" placeholder="Serbest not..."></textarea>
+          <button class="close-textarea" id="btnRemoveNoteText" title="Notu sil">✕</button>
+        </div>
+      </div>
+    </div>
     <div class="modal-muscles" id="modalMuscles"></div>
     <div class="modal-instructions" id="modalInstructions"></div>
   </div>
