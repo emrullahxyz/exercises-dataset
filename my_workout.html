@@ -224,10 +224,12 @@
       position: relative;
     }
 
-    .ex-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 36px rgba(108,99,255,0.2);
+    @media (hover: hover) {
+      .ex-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 36px rgba(108,99,255,0.2);
+      }
     }
 
     .ex-num {
@@ -260,8 +262,10 @@
       transition: transform 0.3s;
     }
 
-    .ex-card:hover .ex-img-wrap img {
-      transform: scale(1.04);
+    @media (hover: hover) {
+      .ex-card:hover .ex-img-wrap img {
+        transform: scale(1.04);
+      }
     }
 
     .ex-play {
@@ -274,8 +278,10 @@
       transition: background 0.2s;
     }
 
-    .ex-card:hover .ex-play {
-      background: rgba(108,99,255,0.18);
+    @media (hover: hover) {
+      .ex-card:hover .ex-play {
+        background: rgba(108,99,255,0.18);
+      }
     }
 
     .ex-play-icon {
@@ -288,9 +294,11 @@
       transition: all 0.2s;
     }
 
-    .ex-card:hover .ex-play-icon {
-      opacity: 1;
-      transform: scale(1);
+    @media (hover: hover) {
+      .ex-card:hover .ex-play-icon {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .ex-play-icon svg { width: 16px; height: 16px; fill: #fff; margin-left: 2px; }
