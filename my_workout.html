@@ -721,18 +721,6 @@
     .input-wrap:focus-within {
       border-color: var(--accent);
     }
-    .auto-input {
-      display: grid;
-      align-items: center;
-      justify-items: center;
-    }
-    .auto-input::after {
-      content: attr(data-val) " ";
-      visibility: hidden;
-      white-space: pre;
-      grid-area: 1 / 1;
-      font-size: 13px;
-    }
     .set-input::-webkit-outer-spin-button,
     .set-input::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -742,9 +730,6 @@
       -moz-appearance: textfield;
     }
     .set-input {
-      grid-area: 1 / 1;
-      width: 100%;
-      min-width: 2ch;
       background: transparent;
       border: none;
       color: var(--text1);
@@ -759,7 +744,7 @@
       font-size: 10px;
       font-weight: 600;
       color: var(--text3);
-      margin-left: 4px;
+      margin-left: 2px;
       pointer-events: none;
       opacity: 0;
       transform: translateX(-5px);
@@ -3243,15 +3228,11 @@ function renderNotesUI() {
       row.innerHTML = `
         <span style="font-size:11px; font-weight:700; color:var(--text3); width:20px;">${index+1}.</span>
         <div class="input-wrap ${setObj.kg ? 'has-val' : ''}">
-          <div class="auto-input" data-val="${setObj.kg || 'Kg'}">
-            <input type="number" class="set-input" placeholder="Kg" value="${setObj.kg || ''}" data-idx="${index}" data-key="kg" />
-          </div>
+          <input type="number" class="set-input" placeholder="Kg" value="${setObj.kg || ''}" data-idx="${index}" data-key="kg" style="width: ${(setObj.kg || 'Kg').length + 0.5}ch;" />
           <span class="input-suffix">kg</span>
         </div>
         <div class="input-wrap ${setObj.reps ? 'has-val' : ''}">
-          <div class="auto-input" data-val="${setObj.reps || 'Tekrar'}">
-            <input type="number" class="set-input" placeholder="Tekrar" value="${setObj.reps || ''}" data-idx="${index}" data-key="reps" />
-          </div>
+          <input type="number" class="set-input" placeholder="Tekrar" value="${setObj.reps || ''}" data-idx="${index}" data-key="reps" style="width: ${(setObj.reps || 'Tekrar').length + 0.5}ch;" />
           <span class="input-suffix">tekrar</span>
         </div>
       `;
@@ -3265,8 +3246,10 @@ function renderNotesUI() {
         const idx = e.target.getAttribute('data-idx');
         const key = e.target.getAttribute('data-key');
         
-        // Auto-expand logic
-        e.target.parentNode.dataset.val = val || e.target.placeholder;
+        // Auto-expand logic (JS based)
+        const textToMeasure = val || e.target.placeholder;
+        e.target.style.width = (textToMeasure.length + 0.5) + 'ch';
+        
         const wrap = e.target.closest('.input-wrap');
         if (val) {
           wrap.classList.add('has-val');
