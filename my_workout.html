@@ -710,15 +710,28 @@
     .input-wrap {
       display: flex;
       align-items: center;
+      justify-content: center;
       background: var(--surface);
       border: 1px solid var(--border2);
       border-radius: 4px;
-      padding: 0 8px;
+      padding: 4px 8px;
       flex: 1;
       transition: border-color 0.2s ease;
     }
     .input-wrap:focus-within {
       border-color: var(--accent);
+    }
+    .auto-input {
+      display: grid;
+      align-items: center;
+      justify-items: center;
+    }
+    .auto-input::after {
+      content: attr(data-val) " ";
+      visibility: hidden;
+      white-space: pre;
+      grid-area: 1 / 1;
+      font-size: 13px;
     }
     .set-input::-webkit-outer-spin-button,
     .set-input::-webkit-inner-spin-button {
@@ -729,12 +742,14 @@
       -moz-appearance: textfield;
     }
     .set-input {
+      grid-area: 1 / 1;
+      width: 100%;
+      min-width: 2ch;
       background: transparent;
       border: none;
       color: var(--text1);
-      padding: 4px 0;
+      padding: 0;
       font-size: 13px;
-      width: 100%;
       text-align: center;
     }
     .set-input:focus {
@@ -744,14 +759,15 @@
       font-size: 10px;
       font-weight: 600;
       color: var(--text3);
+      margin-left: 4px;
       pointer-events: none;
       opacity: 0;
       transform: translateX(-5px);
       transition: opacity 0.3s ease, transform 0.3s ease;
       white-space: nowrap;
     }
-    .set-input:not(:placeholder-shown) ~ .input-suffix,
-    .set-input:focus ~ .input-suffix {
+    .input-wrap.has-val .input-suffix,
+    .input-wrap:focus-within .input-suffix {
       opacity: 1;
       transform: translateX(0);
     }
@@ -3226,12 +3242,16 @@ function renderNotesUI() {
       row.className = 'set-row';
       row.innerHTML = `
         <span style="font-size:11px; font-weight:700; color:var(--text3); width:20px;">${index+1}.</span>
-        <div class="input-wrap">
-          <input type="number" class="set-input" placeholder="Kg" value="${setObj.kg || ''}" data-idx="${index}" data-key="kg" />
+        <div class="input-wrap ${setObj.kg ? 'has-val' : ''}">
+          <div class="auto-input" data-val="${setObj.kg || 'Kg'}">
+            <input type="number" class="set-input" placeholder="Kg" value="${setObj.kg || ''}" data-idx="${index}" data-key="kg" />
+          </div>
           <span class="input-suffix">kg</span>
         </div>
-        <div class="input-wrap">
-          <input type="number" class="set-input" placeholder="Tekrar" value="${setObj.reps || ''}" data-idx="${index}" data-key="reps" />
+        <div class="input-wrap ${setObj.reps ? 'has-val' : ''}">
+          <div class="auto-input" data-val="${setObj.reps || 'Tekrar'}">
+            <input type="number" class="set-input" placeholder="Tekrar" value="${setObj.reps || ''}" data-idx="${index}" data-key="reps" />
+          </div>
           <span class="input-suffix">tekrar</span>
         </div>
       `;
@@ -3241,9 +3261,20 @@ function renderNotesUI() {
     // Attach events for inputs
     setRowsContainer.querySelectorAll('.set-input').forEach(inp => {
       inp.addEventListener('input', (e) => {
+        const val = e.target.value;
         const idx = e.target.getAttribute('data-idx');
         const key = e.target.getAttribute('data-key');
-        currentNoteData.sets[idx][key] = e.target.value;
+        
+        // Auto-expand logic
+        e.target.parentNode.dataset.val = val || e.target.placeholder;
+        const wrap = e.target.closest('.input-wrap');
+        if (val) {
+          wrap.classList.add('has-val');
+        } else {
+          wrap.classList.remove('has-val');
+        }
+        
+        currentNoteData.sets[idx][key] = val;
         scheduleSave();
       });
     });
