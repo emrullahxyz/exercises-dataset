@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benim Antrenman Planım</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+    img { display: block; max-width: 100%; }
+
+    :root {
+      --bg:        #0d0f14;
+      --surface:   #13161f;
+      --surface2:  #1a1e2a;
+      --surface3:  #20253a;
+      --border:    rgba(255,255,255,0.07);
+      --border2:   rgba(255,255,255,0.12);
+      --accent:    #6c63ff;
+      --accent2:   #a78bfa;
+      --orange:    #f97316;
+      --green:     #22d3a5;
+      --blue:      #38bdf8;
+      --red:       #f87171;
+      --text1:     #f0f2ff;
+      --text2:     #94a3b8;
+      --text3:     #4a5568;
+      --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 22px;
+    }
+
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text1);
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+
+    /* ── HEADER ── */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(13, 15, 20, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 4px 14px rgba(108,99,255,0.35);
+    }
+
+    .logo-text {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      background: linear-gradient(90deg, var(--text1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      border: 1px solid;
+    }
+
+    .badge-purple { background: rgba(108,99,255,0.12); color: var(--accent2); border-color: rgba(108,99,255,0.25); }
+    .badge-green  { background: rgba(34,211,165,0.10); color: var(--green);   border-color: rgba(34,211,165,0.22); }
+    .badge-orange { background: rgba(249,115,22,0.10); color: var(--orange);  border-color: rgba(249,115,22,0.22); }
+
+    /* ── BUTTONS ── */
+    .btn-plan {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.22);
+      border-radius: var(--r-sm);
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .btn-plan:hover {
+      background: var(--orange);
+      color: #000;
+      box-shadow: 0 4px 14px rgba(249,115,22,0.3);
+    }
+    .btn-plan svg { width: 14px; height: 14px; }
+
+    /* ── MAIN ── */
+    .main { padding: 32px 28px 80px; max-width: 1320px; margin: 0 auto; }
+
+    /* ── DAY TABS ── */
+    .day-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .day-tab {
+      padding: 8px 18px;
+      border-radius: var(--r-md);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text2);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: all 0.18s;
+      letter-spacing: -0.01em;
+    }
+
+    .day-tab:hover {
+      border-color: var(--border2);
+      color: var(--text1);
+      background: var(--surface2);
+    }
+
+    .day-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(108,99,255,0.3);
+    }
+
+    .day-tab.squash {
+      border-color: rgba(34,211,165,0.3);
+      color: var(--green);
+    }
+    .day-tab.squash.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: #000;
+      box-shadow: 0 4px 18px rgba(34,211,165,0.3);
+    }
+
+    /* ── SESSION HEADER ── */
+    .session-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 20px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+    }
+
+    .session-title { font-size: 22px; font-weight: 800; letter-spacing: -0.04em; }
+    .session-sub   { color: var(--text2); font-size: 13px; margin-top: 3px; }
+
+    .session-stats {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .stat-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      gap: 2px;
+    }
+
+    .stat-val { font-size: 16px; font-weight: 700; }
+    .stat-lbl { font-size: 10px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── EXERCISE GRID ── */
+    .exercise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 14px;
+    }
+
+    .ex-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .ex-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(108,99,255,0.2);
+    }
+
+    .ex-num {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 24px; height: 24px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text1);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1;
+    }
+
+    .ex-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--surface2);
+      overflow: hidden;
+    }
+
+    .ex-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .ex-card:hover .ex-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .ex-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(108,99,255,0);
+      transition: background 0.2s;
+    }
+
+    .ex-card:hover .ex-play {
+      background: rgba(108,99,255,0.18);
+    }
+
+    .ex-play-icon {
+      width: 40px; height: 40px;
+      background: rgba(108,99,255,0.85);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transform: scale(0.7);
+      transition: all 0.2s;
+    }
+
+    .ex-card:hover .ex-play-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .ex-play-icon svg { width: 16px; height: 16px; fill: #fff; margin-left: 2px; }
+
+    .ex-info {
+      padding: 10px 12px 12px;
+    }
+
+    .ex-name {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text1);
+      line-height: 1.4;
+      text-transform: capitalize;
+      margin-bottom: 6px;
+    }
+
+    .ex-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .ex-tag {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid;
+      text-transform: capitalize;
+    }
+
+    .ex-tag-target {
+      background: rgba(108,99,255,0.1);
+      color: var(--accent2);
+      border-color: rgba(108,99,255,0.22);
+    }
+
+    .ex-tag-equip {
+      background: var(--surface2);
+      color: var(--text2);
+      border-color: var(--border);
+    }
+
+    .ex-sets {
+      margin-top: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── SQUASH DAY ── */
+    .squash-view {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .squash-emoji {
+      font-size: 72px;
+      filter: drop-shadow(0 8px 24px rgba(34,211,165,0.4));
+    }
+
+    .squash-title { font-size: 28px; font-weight: 800; letter-spacing: -0.04em; }
+    .squash-sub   { color: var(--text2); font-size: 15px; max-width: 400px; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+      padding: 16px;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-panel {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: var(--r-xl);
+      width: min(680px, 100%);
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+      transform: translateY(16px) scale(0.97);
+      transition: transform 0.22s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    }
+
+    .modal-overlay.open .modal-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 20px 0;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-transform: capitalize;
+      line-height: 1.3;
+    }
+
+    .modal-close {
+      flex-shrink: 0;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+      margin-top: 2px;
+    }
+
+    .modal-close:hover {
+      background: rgba(108,99,255,0.15);
+      border-color: var(--accent);
+      color: var(--accent2);
+    }
+
+    .modal-gif-wrap {
+      padding: 14px 20px 0;
+    }
+
+    .modal-gif {
+      width: 100%;
+      max-height: 340px;
+      object-fit: contain;
+      border-radius: var(--r-md);
+      background: var(--surface2);
+    }
+
+    .modal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 14px 20px 0;
+    }
+
+    .meta-chip {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 8px 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+    }
+
+    .meta-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3); }
+    .meta-value { font-size: 13px; font-weight: 600; color: var(--text1); text-transform: capitalize; }
+
+    .modal-plan-info {
+      margin: 12px 20px 0;
+      padding: 12px 14px;
+      background: rgba(108,99,255,0.08);
+      border: 1px solid rgba(108,99,255,0.2);
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .plan-icon { font-size: 20px; }
+    .plan-detail { font-size: 13px; color: var(--accent2); font-weight: 600; }
+    .plan-setsreps { font-size: 11px; color: var(--text2); margin-top: 1px; }
+
+    .modal-muscles {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+      margin-bottom: 10px;
+    }
+
+    .muscles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .muscles-group {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 10px 12px;
+    }
+
+    .muscles-group-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text3);
+      margin-bottom: 7px;
+    }
+
+    .muscle-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .muscle-tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 5px;
+      text-transform: capitalize;
+      background: var(--surface3);
+      color: var(--text2);
+      border: 1px solid var(--border);
+    }
+
+    .muscle-tag.primary {
+      background: rgba(108,99,255,0.2);
+      color: var(--accent2);
+      border-color: rgba(108,99,255,0.3);
+      font-weight: 600;
+    }
+
+    .modal-instructions { padding: 0 20px 24px; }
+
+    .instructions-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+      padding: 14px 0 0;
+      display: block;
+    }
+
+    .lang-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin: 10px 0 14px;
+    }
+
+    .lang-tab {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 20px;
+      color: var(--text2);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.15s;
+    }
+
+    .lang-tab:hover { color: var(--text1); }
+    .lang-tab.active { color: var(--text1); font-weight: 600; }
+
+    .lang-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .instructions-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .instruction-step { display: flex; gap: 10px; align-items: flex-start; }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent2);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+
+    .step-text { font-size: 13px; line-height: 1.6; color: var(--text2); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .header { padding: 12px 16px; }
+      .main { padding: 20px 16px 60px; }
+      .session-header { flex-direction: column; }
+      .exercise-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+      .modal-panel { max-height: 92dvh; }
+      .muscles-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .exercise-grid { grid-template-columns: repeat(2, 1fr); }
+      .modal-panel { border-radius: var(--r-xl) var(--r-xl) 0 0; }
+      .modal-overlay { align-items: flex-end; padding: 0; }
+      .header-meta { display: none; }
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar-wrap {
+      margin-bottom: 24px;
+    }
+    .progress-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text2);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .progress-bar {
+      height: 4px;
+      background: var(--surface2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 4px;
+      transition: width 0.6s cubic-bezier(.4,0,.2,1);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-logo">
+    <div class="logo-icon">💪</div>
+    <div class="logo-text">Antrenman Planım</div>
+  </div>
+  <div class="header-meta">
+    <button class="btn-plan" id="btnShowPlan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <polyline points="21 15 16 10 5 21"></polyline>
+      </svg>
+      Özet Görseli
+    </button>
+    <span class="badge badge-purple">Upper / Lower Split</span>
+    <span class="badge badge-green">3–4 Gün + Squash</span>
+    <span class="badge badge-orange">Haziran 2026</span>
+  </div>
+</header>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- Day Tabs -->
+  <div class="day-tabs" id="dayTabs">
+    <button class="day-tab active" data-day="upperA">🔵 Upper A — İtme</button>
+    <button class="day-tab" data-day="lowerFull">🟢 Lower — Tam Bacak</button>
+    <button class="day-tab" data-day="upperB">🔴 Upper B — Çekiş</button>
+    <button class="day-tab" data-day="lowerA">🟢 Lower A — Quad</button>
+    <button class="day-tab" data-day="lowerB">🟠 Lower B — Posterior</button>
+    <button class="day-tab squash" data-day="squash">🎾 Squash</button>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-label">
+      <span id="progressLabel">Upper A — 8 egzersiz</span>
+      <span id="progressPct">4×5–6 → 4×12–15</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:100%"></div></div>
+  </div>
+
+  <!-- Session Header -->
+  <div class="session-header" id="sessionHeader">
+    <div>
+      <div class="session-title" id="sessionTitle">🔵 Upper A — İtme</div>
+      <div class="session-sub" id="sessionSub">Göğüs · Omuz · Triceps · Core</div>
+    </div>
+    <div class="session-stats" id="sessionStats"></div>
+  </div>
+
+  <!-- Exercise Grid -->
+  <div class="exercise-grid" id="exerciseGrid"></div>
+
+</main>
+
+<!-- ── EXERCISE MODAL ── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-panel" id="modalPanel">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-gif-wrap">
+      <img class="modal-gif" id="modalGif" alt="" />
+    </div>
+    <div class="modal-meta" id="modalMeta"></div>
+    <div class="modal-plan-info" id="modalPlanInfo"></div>
+    <div class="modal-muscles" id="modalMuscles"></div>
+    <div class="modal-instructions" id="modalInstructions"></div>
+  </div>
+</div>
+
+<!-- ── IMAGE PLAN OVERLAY ── -->
+<div class="modal-overlay" id="planOverlay">
+  <div class="modal-panel" style="width: min(850px, 100%);">
+    <div class="modal-header">
+      <h2 class="modal-title">Haftalık Antrenman Planı</h2>
+      <button class="modal-close" id="planClose">✕</button>
+    </div>
+    <div class="modal-gif-wrap" style="padding: 18px;">
+      <img src="workout_new.png" alt="Workout Plan" style="width: 100%; border-radius: var(--r-md); box-shadow: 0 10px 40px rgba(0,0,0,0.5);" />
+    </div>
+  </div>
+</div>
+
+<script>
+// ── EXERCISE DATA ──
+const EXERCISES_RAW = __EXERCISES_JSON__;
+
+// Index by name
+const BY_NAME = {};
+EXERCISES_RAW.forEach(e => { BY_NAME[e.name] = e; });
+
+// ── WORKOUT PLAN ──
+const PLAN = {
+  upperA: {
+    title: '🔵 Upper A — İtme',
+    sub: 'Göğüs · Omuz · Triceps · Core',
+    stats: [{ v: '8', l: 'Egzersiz' }, { v: '~26', l: 'Set' }, { v: '~75', l: 'Dk' }],
+    exercises: [
+      { name: 'barbell bench press',                              sets: '4×5–6',   label: 'Güç tabanı' },
+      { name: 'dumbbell incline bench press',                     sets: '3×8–10',  label: 'Üst göğüs' },
+      { name: 'cable low fly',                                    sets: '3×12–15', label: 'İç göğüs & gerilim' },
+      { name: 'dumbbell seated shoulder press',                   sets: '4×8–10',  label: 'Omuz hacmi' },
+      { name: 'dumbbell lateral raise',                           sets: '4×15–20', label: 'Yan delt — genişlik' },
+      { name: 'cable overhead triceps extension (rope attachment)',sets: '3×12–15', label: 'Triceps uzun baş' },
+      { name: 'cable triceps pushdown (v-bar)',                   sets: '3×12–15', label: 'Triceps hacim' },
+      { name: 'wheel rollerout',                                  sets: '3×8–10',  label: 'Core' },
+    ]
+  },
+  lowerFull: {
+    title: '🟢 Lower — Tam Bacak',
+    sub: 'Quad · Hamstring · Kalça · Baldır · Core (Versiyon A)',
+    stats: [{ v: '7', l: 'Egzersiz' }, { v: '~23', l: 'Set' }, { v: '~80', l: 'Dk' }],
+    exercises: [
+      { name: 'barbell full squat',              sets: '4×5–6',             label: 'Ana güç hareketi' },
+      { name: 'barbell romanian deadlift',       sets: '3×8–10',            label: 'Hamstring + Kalça' },
+      { name: 'barbell single leg split squat',  sets: '3×8–10 (her bacak)',label: 'Quad + Denge ⚠️ Sol önce' },
+      { name: 'lever seated leg curl',           sets: '3×10–12',           label: 'Hamstring izolasyon' },
+      { name: 'lever leg extension',             sets: '3×12–15',           label: 'VMO izolasyon' },
+      { name: 'lever standing calf raise',       sets: '4×15–20',           label: 'Baldır hacmi' },
+      { name: 'hanging leg raise',               sets: '3×10–15',           label: 'Core — alt karın' },
+    ]
+  },
+  upperB: {
+    title: '🔴 Upper B — Çekiş',
+    sub: 'Sırt · Biceps · Arka Omuz',
+    stats: [{ v: '8', l: 'Egzersiz' }, { v: '~26', l: 'Set' }, { v: '~75', l: 'Dk' }],
+    exercises: [
+      { name: 'weighted pull-up',                            sets: '4×4–6',   label: 'Sırt güç tabanı' },
+      { name: 'barbell bent over row',                       sets: '4×6–8',   label: 'Sırt kalınlığı' },
+      { name: 'dumbbell incline row',                        sets: '3×10–12', label: 'Sırt hacmi (izolasyon)' },
+      { name: 'cable lat pulldown full range of motion',     sets: '3×10–12', label: 'Sırt genişliği' },
+      { name: 'cable rear delt row (with rope)',             sets: '3×15–20', label: 'Face Pull — arka delt' },
+      { name: 'barbell curl',                                sets: '3×8–10',  label: 'Biceps güç' },
+      { name: 'dumbbell incline curl',                       sets: '3×10–12', label: 'Biceps uzun baş' },
+      { name: 'dumbbell hammer curl',                        sets: '2×12–15', label: 'Brachialis + ön kol' },
+    ]
+  },
+  lowerA: {
+    title: '🟢 Lower A — Quad Dominant',
+    sub: 'Ön Bacak · Baldır · Core (Versiyon B)',
+    stats: [{ v: '7', l: 'Egzersiz' }, { v: '~23', l: 'Set' }, { v: '~70', l: 'Dk' }],
+    exercises: [
+      { name: 'barbell full squat',             sets: '4×5–6',   label: 'Ana güç hareketi' },
+      { name: 'barbell single leg split squat', sets: '3×8–10',  label: 'Quad + Denge ⚠️ Sol önce' },
+      { name: 'lever leg extension',            sets: '3×15–20', label: 'VMO izolasyon' },
+      { name: 'cable kneeling crunch',          sets: '3×15–20', label: 'Rectus abdominis' },
+      { name: 'lever standing calf raise',      sets: '4×15–20', label: 'Baldır (gastrocnemius)' },
+      { name: 'hanging leg raise',              sets: '3×10–15', label: 'Core — alt karın' },
+    ]
+  },
+  lowerB: {
+    title: '🟠 Lower B — Posterior Chain',
+    sub: 'Arka Bacak · Kalça · Hamstring · Core (Versiyon B)',
+    stats: [{ v: '7', l: 'Egzersiz' }, { v: '~25', l: 'Set' }, { v: '~75', l: 'Dk' }],
+    exercises: [
+      { name: 'barbell romanian deadlift', sets: '4×6–8',            label: 'Hamstring + Kalça güç' },
+      { name: 'lever seated leg curl',     sets: '4×10–12',           label: 'Hamstring izolasyon' },
+      { name: 'barbell glute bridge',      sets: '4×10–12',           label: 'Glute hacmi (Hip Thrust)' },
+      { name: 'walking lunge',             sets: '3×12 (her bacak)',   label: 'Bacak bütünü + denge' },
+      { name: 'lever seated calf raise',   sets: '4×15–20',           label: 'Soleus (iç baldır)' },
+      { name: 'lever back extension',      sets: '3×12–15',           label: 'Alt sırt & kalça' },
+      { name: 'cable twist',               sets: '3×15 (her taraf)',   label: 'Obliques' },
+    ]
+  },
+  squash: null
+};
+
+// ── STATE ──
+let currentDay = 'upperA';
+let currentLang = 'tr';
+let currentExercise = null;
+
+// ── RENDER SESSION ──
+function renderSession(dayKey) {
+  const session = PLAN[dayKey];
+
+  // Session header
+  document.getElementById('sessionTitle').textContent = session.title;
+  document.getElementById('sessionSub').textContent   = session.sub;
+
+  const statsEl = document.getElementById('sessionStats');
+  statsEl.innerHTML = session.stats.map(s =>
+    `<div class="stat-pill"><div class="stat-val">${s.v}</div><div class="stat-lbl">${s.l}</div></div>`
+  ).join('');
+
+  // Progress
+  const count = session.exercises.length;
+  document.getElementById('progressLabel').textContent = `${session.title.replace(/^[^\w]+/,'')} — ${count} egzersiz`;
+  document.getElementById('progressPct').textContent   = session.stats.map(s => `${s.v} ${s.l}`).join('  ·  ');
+  document.getElementById('progressFill').style.width  = '100%';
+
+  // Grid
+  const grid = document.getElementById('exerciseGrid');
+  grid.innerHTML = '';
+
+  session.exercises.forEach((ex, i) => {
+    const data = BY_NAME[ex.name];
+    if (!data) return;
+
+    const card = document.createElement('div');
+    card.className = 'ex-card';
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', data.name);
+
+    card.innerHTML = `
+      <span class="ex-num">${i + 1}</span>
+      <div class="ex-img-wrap">
+        <img src="https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/${data.image}" alt="${data.name}" loading="lazy" />
+        <div class="ex-play">
+          <div class="ex-play-icon">
+            <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="ex-info">
+        <div class="ex-name">${data.name}</div>
+        <div class="ex-tags">
+          <span class="ex-tag ex-tag-target">${data.target}</span>
+          <span class="ex-tag ex-tag-equip">${data.equipment}</span>
+        </div>
+        <div class="ex-sets">${ex.sets}</div>
+      </div>
+    `;
+
+    card.addEventListener('click', () => openModal(data, ex));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter') openModal(data, ex); });
+    grid.appendChild(card);
+  });
+}
+
+// ── SQUASH VIEW ──
+function renderSquash() {
+  document.getElementById('sessionTitle').textContent = '🎾 Squash Günü';
+  document.getElementById('sessionSub').textContent   = 'Aktif toparlanma ve kardiyovasküler kapasite';
+  document.getElementById('sessionStats').innerHTML   = `
+    <div class="stat-pill"><div class="stat-val">~60</div><div class="stat-lbl">Dk</div></div>
+    <div class="stat-pill"><div class="stat-val">Cuma</div><div class="stat-lbl">Gün</div></div>
+  `;
+  document.getElementById('progressLabel').textContent = 'Squash — Aktif Dinlenme';
+  document.getElementById('progressPct').textContent   = 'Kardio + Toparlanma';
+  document.getElementById('progressFill').style.width  = '100%';
+
+  document.getElementById('exerciseGrid').innerHTML = `
+    <div class="squash-view" style="grid-column:1/-1">
+      <div class="squash-emoji">🎾</div>
+      <div class="squash-title">Squash Günü</div>
+      <div class="squash-sub">Aktif toparlanma ve kardiyovasküler kapasite için spor salonu dışı branş antrenmanı. Squash öncesi hafif karbonhidrat + elektrolit al.</div>
+    </div>
+  `;
+}
+
+// ── EXERCISE MODAL ──
+function openModal(data, planEx) {
+  currentExercise = { data, planEx };
+
+  document.getElementById('modalTitle').textContent = data.name;
+  document.getElementById('modalGif').src = "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/" + data.gif_url;
+  document.getElementById('modalGif').alt = data.name;
+
+  // Meta chips
+  document.getElementById('modalMeta').innerHTML = [
+    { l: 'Kategori', v: data.category },
+    { l: 'Hedef Kas', v: data.target },
+    { l: 'Ekipman', v: data.equipment },
+    { l: 'Kas Grubu', v: data.muscle_group },
+  ].map(m => `
+    <div class="meta-chip">
+      <span class="meta-label">${m.l}</span>
+      <span class="meta-value">${m.v}</span>
+    </div>
+  `).join('');
+
+  // Plan info
+  document.getElementById('modalPlanInfo').innerHTML = `
+    <div class="plan-icon">📋</div>
+    <div>
+      <div class="plan-detail">${planEx.label}</div>
+      <div class="plan-setsreps">${planEx.sets} &nbsp;·&nbsp; Progressive Overload uygula</div>
+    </div>
+  `;
+
+  // Muscles
+  const primary = [data.target];
+  const secondary = data.secondary_muscles || [];
+  document.getElementById('modalMuscles').innerHTML = `
+    <div class="section-label">Kaslar</div>
+    <div class="muscles-grid">
+      <div class="muscles-group">
+        <div class="muscles-group-label">Primer</div>
+        <div class="muscle-tags">
+          ${primary.map(m => `<span class="muscle-tag primary">${m}</span>`).join('')}
+        </div>
+      </div>
+      <div class="muscles-group">
+        <div class="muscles-group-label">Sekonder</div>
+        <div class="muscle-tags">
+          ${secondary.length ? secondary.map(m => `<span class="muscle-tag">${m}</span>`).join('') : '<span class="muscle-tag">—</span>'}
+        </div>
+      </div>
+    </div>
+  `;
+
+  renderInstructions(data, currentLang);
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderInstructions(data, lang) {
+  const steps = (data.instruction_steps || {})[lang] || (data.instruction_steps || {}).en || [];
+  const availLangs = Object.keys(data.instruction_steps || {}).filter(l => ['en','tr'].includes(l));
+
+  document.getElementById('modalInstructions').innerHTML = `
+    <span class="instructions-label">Nasıl Yapılır?</span>
+    <div class="lang-tabs">
+      ${availLangs.map(l => `
+        <button class="lang-tab${l === lang ? ' active' : ''}" data-lang="${l}">
+          ${l === 'tr' ? 'Türkçe' : l === 'en' ? 'English' : l.toUpperCase()}
+        </button>
+      `).join('')}
+    </div>
+    <ol class="instructions-list">
+      ${steps.map((s, i) => `
+        <li class="instruction-step">
+          <span class="step-num">${i + 1}</span>
+          <span class="step-text">${s}</span>
+        </li>
+      `).join('')}
+    </ol>
+  `;
+
+  document.querySelectorAll('.lang-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentLang = btn.dataset.lang;
+      renderInstructions(currentExercise.data, currentLang);
+    });
+  });
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => {
+    document.getElementById('modalGif').src = '';
+  }, 250);
+}
+
+// ── PLAN IMAGE OVERLAY ──
+const planOverlay = document.getElementById('planOverlay');
+const btnShowPlan = document.getElementById('btnShowPlan');
+const planClose = document.getElementById('planClose');
+
+btnShowPlan.addEventListener('click', () => {
+  planOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+
+function closePlanModal() {
+  planOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+planClose.addEventListener('click', closePlanModal);
+planOverlay.addEventListener('click', e => {
+  if (e.target === e.currentTarget) closePlanModal();
+});
+
+// ── TAB SWITCH ──
+document.getElementById('dayTabs').addEventListener('click', e => {
+  const btn = e.target.closest('.day-tab');
+  if (!btn) return;
+
+  document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentDay = btn.dataset.day;
+
+  if (currentDay === 'squash') {
+    renderSquash();
+  } else {
+    renderSession(currentDay);
+  }
+});
+
+// ── MODAL CLOSE ──
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', e => { 
+  if (e.key === 'Escape') {
+    closeModal();
+    closePlanModal();
+  }
+});
+
+// ── INIT ──
+renderSession('upperA');
+</script>
+</body>
+</html>

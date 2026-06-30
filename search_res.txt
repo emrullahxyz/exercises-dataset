@@ -1,0 +1,1 @@
+Leg press: ['lever alternate leg press', 'lever horizontal one leg press', 'lever seated squat calf raise on leg press machine', 'sled 45 degrees one leg press', 'sled 45в° leg press', 'sled 45в° leg press (back pov)', 'sled 45° leg press (side pov)', 'sled calf press on leg press', 'sled one leg calf press on leg press', 'smith leg press']

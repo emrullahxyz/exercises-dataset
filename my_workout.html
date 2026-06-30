@@ -717,6 +717,7 @@
       padding: 4px 8px;
       flex: 1;
       transition: border-color 0.2s ease;
+      cursor: text;
     }
     .input-wrap:focus-within {
       border-color: var(--accent);
@@ -3227,14 +3228,14 @@ function renderNotesUI() {
       row.className = 'set-row';
       row.innerHTML = `
         <span style="font-size:11px; font-weight:700; color:var(--text3); width:20px;">${index+1}.</span>
-        <div class="input-wrap ${setObj.kg ? 'has-val' : ''}">
+        <label class="input-wrap ${setObj.kg ? 'has-val' : ''}">
           <input type="number" class="set-input" placeholder="Kg" value="${setObj.kg || ''}" data-idx="${index}" data-key="kg" style="width: ${(setObj.kg || 'Kg').length + 0.5}ch;" />
           <span class="input-suffix">kg</span>
-        </div>
-        <div class="input-wrap ${setObj.reps ? 'has-val' : ''}">
+        </label>
+        <label class="input-wrap ${setObj.reps ? 'has-val' : ''}">
           <input type="number" class="set-input" placeholder="Tekrar" value="${setObj.reps || ''}" data-idx="${index}" data-key="reps" style="width: ${(setObj.reps || 'Tekrar').length + 0.5}ch;" />
           <span class="input-suffix">tekrar</span>
-        </div>
+        </label>
       `;
       setRowsContainer.appendChild(row);
     });
