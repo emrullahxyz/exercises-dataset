@@ -3133,12 +3133,15 @@ async function fetchNotes(exercise_id, setsString) {
     const res = await fetch(API_URL + encodeURIComponent(exercise_id));
     if (res.ok) {
       const result = await res.json();
+      if (currentExerciseId !== exercise_id) return; // Prevent race condition
       if (result.success && result.data) {
         currentNoteData = result.data;
         if (!currentNoteData.sets) currentNoteData.sets = [];
         if (!currentNoteData.note) currentNoteData.note = "";
       }
     }
+    
+    if (currentExerciseId !== exercise_id) return; // Prevent race condition
     
     // Auto-populate default sets if empty
     if (currentNoteData.sets.length === 0) {
