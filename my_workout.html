@@ -707,19 +707,53 @@
       gap: 8px;
       align-items: center;
     }
-    .set-input {
+    .input-wrap {
+      display: flex;
+      align-items: center;
       background: var(--surface);
       border: 1px solid var(--border2);
       border-radius: 4px;
+      padding: 0 8px;
+      flex: 1;
+      transition: border-color 0.2s ease;
+    }
+    .input-wrap:focus-within {
+      border-color: var(--accent);
+    }
+    .set-input::-webkit-outer-spin-button,
+    .set-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .set-input[type=number] {
+      -moz-appearance: textfield;
+    }
+    .set-input {
+      background: transparent;
+      border: none;
       color: var(--text1);
-      padding: 4px 6px;
+      padding: 4px 0;
       font-size: 13px;
       width: 100%;
       text-align: center;
     }
     .set-input:focus {
       outline: none;
-      border-color: var(--accent);
+    }
+    .input-suffix {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text3);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(-5px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      white-space: nowrap;
+    }
+    .set-input:not(:placeholder-shown) ~ .input-suffix,
+    .set-input:focus ~ .input-suffix {
+      opacity: 1;
+      transform: translateX(0);
     }
     .btn-icon {
       background: none;
