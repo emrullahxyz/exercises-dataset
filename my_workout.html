@@ -3261,6 +3261,12 @@ function renderNotesUI() {
         currentNoteData.sets[idx][key] = val;
         scheduleSave();
       });
+
+      inp.addEventListener('focus', (e) => {
+        setTimeout(() => {
+          e.target.select();
+        }, 50);
+      });
     });
   }
 
@@ -3292,6 +3298,11 @@ if(notesTextarea) {
   notesTextarea.addEventListener('input', (e) => {
     currentNoteData.note = e.target.value;
     scheduleSave();
+  });
+  notesTextarea.addEventListener('focus', (e) => {
+    setTimeout(() => {
+      e.target.select();
+    }, 50);
   });
 }
 
