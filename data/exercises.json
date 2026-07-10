@@ -13635,6 +13635,59 @@
     "created_at": "2026-03-18T12:31:32.873742+00:00"
   },
   {
+    "id": "5203",
+    "name": "bird dog",
+    "category": "waist",
+    "body_part": "waist",
+    "equipment": "body weight",
+    "instructions": {
+      "en": "Start on all fours with your hands under your shoulders and knees under your hips. Brace your core and keep your back flat. Extend your right arm forward and left leg back at the same time. Hold for 1-2 seconds without letting your hips rotate. Return to the start and repeat with the opposite arm and leg.",
+      "it": "Inizia a quattro zampe con le mani sotto le spalle e le ginocchia sotto i fianchi. Contrai il core e mantieni la schiena piatta. Estendi contemporaneamente il braccio destro in avanti e la gamba sinistra indietro. Mantieni la posizione per 1-2 secondi senza far ruotare i fianchi. Torna alla posizione iniziale e ripeti con il braccio e la gamba opposti.",
+      "tr": "Elleriniz omuz, dizleriniz kalça hizasında olacak şekilde dört ayak pozisyonunda başlayın. Core bölgenizi sıkın ve sırtınızı düz tutun. Sağ kolunuzu öne, sol bacağınızı geriye doğru aynı anda uzatın. Kalçanız dönmeden 1-2 saniye bu pozisyonda kalın. Başlangıca dönün ve diğer çaprazla tekrarlayın.",
+      "es": "Comienza a cuatro patas con las manos debajo de los hombros y las rodillas debajo de las caderas. Activa el core y mantén la espalda plana. Extiende el brazo derecho hacia adelante y la pierna izquierda hacia atrás al mismo tiempo. Mantén la posición 1-2 segundos sin dejar que las caderas roten. Vuelve al inicio y repite con el brazo y la pierna contrarios."
+    },
+    "instruction_steps": {
+      "en": [
+        "Start on all fours with your hands under your shoulders and knees under your hips.",
+        "Brace your core and keep your back flat.",
+        "Extend your right arm forward and left leg back at the same time.",
+        "Hold for 1-2 seconds without letting your hips rotate.",
+        "Return to the start and repeat with the opposite arm and leg."
+      ],
+      "it": [
+        "Inizia a quattro zampe con le mani sotto le spalle e le ginocchia sotto i fianchi.",
+        "Contrai il core e mantieni la schiena piatta.",
+        "Estendi contemporaneamente il braccio destro in avanti e la gamba sinistra indietro.",
+        "Mantieni la posizione per 1-2 secondi senza far ruotare i fianchi.",
+        "Torna alla posizione iniziale e ripeti con il braccio e la gamba opposti."
+      ],
+      "tr": [
+        "Elleriniz omuz, dizleriniz kalça hizasında olacak şekilde dört ayak pozisyonunda başlayın.",
+        "Core bölgenizi sıkın ve sırtınızı düz tutun.",
+        "Sağ kolunuzu öne, sol bacağınızı geriye doğru aynı anda uzatın.",
+        "Kalçanız dönmeden 1-2 saniye bu pozisyonda kalın.",
+        "Başlangıca dönün ve diğer çaprazla tekrarlayın."
+      ],
+      "es": [
+        "Comienza a cuatro patas con las manos debajo de los hombros y las rodillas debajo de las caderas.",
+        "Activa el core y mantén la espalda plana.",
+        "Extiende el brazo derecho hacia adelante y la pierna izquierda hacia atrás al mismo tiempo.",
+        "Mantén la posición 1-2 segundos sin dejar que las caderas roten.",
+        "Vuelve al inicio y repite con el brazo y la pierna contrarios."
+      ]
+    },
+    "muscle_group": "glutes",
+    "secondary_muscles": [
+      "glutes",
+      "lower back",
+      "shoulders"
+    ],
+    "target": "abs",
+    "image": "images/5203-Tb7RnXd.jpg",
+    "gif_url": "videos/5203-Tb7RnXd.gif",
+    "created_at": "2026-07-10T18:10:29.973072+00:00"
+  },
+  {
     "id": "0137",
     "name": "body-up",
     "category": "upper arms",
@@ -23960,6 +24013,58 @@
     "image": "images/2963-weoDEpH.jpg",
     "gif_url": "videos/2963-weoDEpH.gif",
     "created_at": "2026-03-18T12:31:32.876898+00:00"
+  },
+  {
+    "id": "5202",
+    "name": "cat-cow",
+    "category": "back",
+    "body_part": "back",
+    "equipment": "body weight",
+    "instructions": {
+      "en": "Start on all fours with your hands under your shoulders and knees under your hips. Exhale and round your spine toward the ceiling, tucking your head and tailbone (Cat). Inhale and let your belly drop, lifting your chest and head upward (Cow). Flow slowly between the two positions with control. Focus on moving the spine segment by segment on every rep.",
+      "it": "Inizia a quattro zampe con le mani sotto le spalle e le ginocchia sotto i fianchi. Espira e arrotonda la colonna verso il soffitto, portando testa e coccige verso l'interno (Gatto). Inspira e lascia scendere l'addome, sollevando petto e testa verso l'alto (Mucca). Passa lentamente e con controllo da una posizione all'altra. Concentrati sul muovere la colonna vertebrale segmento per segmento ad ogni ripetizione.",
+      "tr": "Elleriniz omuzlarınızın, dizleriniz kalçalarınızın altında olacak şekilde dört ayak pozisyonu alın. Nefes vererek sırtınızı tavana doğru yuvarlayın; başınızı ve kuyruk sokumunuzu içeri alın (Kedi). Nefes alarak karnınızı yere doğru bırakın; göğsünüzü ve başınızı yukarı kaldırın (İnek). İki pozisyon arasında yavaş ve kontrollü şekilde akıcı geçiş yapın. Her tekrarda omurganın segment segment hareket etmesine odaklanın.",
+      "es": "Comienza a cuatro patas con las manos debajo de los hombros y las rodillas debajo de las caderas. Exhala y redondea la columna hacia el techo, metiendo la cabeza y el coxis (Gato). Inhala y deja caer el abdomen, levantando el pecho y la cabeza hacia arriba (Vaca). Alterna lentamente y con control entre las dos posiciones. Concéntrate en mover la columna segmento a segmento en cada repetición."
+    },
+    "instruction_steps": {
+      "en": [
+        "Start on all fours with your hands under your shoulders and knees under your hips.",
+        "Exhale and round your spine toward the ceiling, tucking your head and tailbone (Cat).",
+        "Inhale and let your belly drop, lifting your chest and head upward (Cow).",
+        "Flow slowly between the two positions with control.",
+        "Focus on moving the spine segment by segment on every rep."
+      ],
+      "it": [
+        "Inizia a quattro zampe con le mani sotto le spalle e le ginocchia sotto i fianchi.",
+        "Espira e arrotonda la colonna verso il soffitto, portando testa e coccige verso l'interno (Gatto).",
+        "Inspira e lascia scendere l'addome, sollevando petto e testa verso l'alto (Mucca).",
+        "Passa lentamente e con controllo da una posizione all'altra.",
+        "Concentrati sul muovere la colonna vertebrale segmento per segmento ad ogni ripetizione."
+      ],
+      "tr": [
+        "Elleriniz omuzlarınızın, dizleriniz kalçalarınızın altında olacak şekilde dört ayak pozisyonu alın.",
+        "Nefes vererek sırtınızı tavana doğru yuvarlayın; başınızı ve kuyruk sokumunuzu içeri alın (Kedi).",
+        "Nefes alarak karnınızı yere doğru bırakın; göğsünüzü ve başınızı yukarı kaldırın (İnek).",
+        "İki pozisyon arasında yavaş ve kontrollü şekilde akıcı geçiş yapın.",
+        "Her tekrarda omurganın segment segment hareket etmesine odaklanın."
+      ],
+      "es": [
+        "Comienza a cuatro patas con las manos debajo de los hombros y las rodillas debajo de las caderas.",
+        "Exhala y redondea la columna hacia el techo, metiendo la cabeza y el coxis (Gato).",
+        "Inhala y deja caer el abdomen, levantando el pecho y la cabeza hacia arriba (Vaca).",
+        "Alterna lentamente y con control entre las dos posiciones.",
+        "Concéntrate en mover la columna segmento a segmento en cada repetición."
+      ]
+    },
+    "muscle_group": "abs",
+    "secondary_muscles": [
+      "abs",
+      "lower back"
+    ],
+    "target": "spine",
+    "image": "images/5202-Kc3PwQm.jpg",
+    "gif_url": "videos/5202-Kc3PwQm.gif",
+    "created_at": "2026-07-10T18:10:29.973072+00:00"
   },
   {
     "id": "1548",
