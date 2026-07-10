@@ -366,21 +366,78 @@
     .ex-tag-posture { background: rgba(34,211,165,0.1); color: var(--green); border-color: rgba(34,211,165,0.22); text-transform: none; }
     .ex-tag-cycle   { background: rgba(56,189,248,0.1); color: var(--blue);  border-color: rgba(56,189,248,0.22); text-transform: none; }
 
-    /* ── WEEKLY TABLE ── */
-    .week-table { display: flex; flex-direction: column; gap: 6px; padding: 20px 24px 24px; }
-    .week-row {
+    /* ── PLAN INFOGRAPHIC (poster tarzı, açık tema) ── */
+    .ig-wrap {
+      background: #eef1f7;
+      color: #1e293b;
+      padding: 20px;
       display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 10px 14px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
+      flex-direction: column;
+      gap: 12px;
+      font-size: 12.5px;
+      line-height: 1.45;
     }
-    .week-row.rest { opacity: 0.55; }
-    .week-day  { width: 38px; font-size: 12px; font-weight: 800; color: var(--accent2); flex-shrink: 0; }
-    .week-what { font-size: 13.5px; font-weight: 600; }
-    .week-note { font-size: 11.5px; color: var(--text2); margin-top: 1px; }
+    .ig-card {
+      background: #fff;
+      border: 1px solid #dde3ee;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .ig-title    { font-size: 23px; font-weight: 900; letter-spacing: -0.03em; color: #0f2c5c; line-height: 1.15; }
+    .ig-subtitle { font-size: 13px; font-weight: 700; color: #2563eb; margin-top: 3px; }
+    .ig-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .ig-chip  { background: #f1f5fb; border: 1px solid #dde3ee; border-radius: 8px; padding: 7px 11px; font-size: 11.5px; }
+    .ig-chip b { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-bottom: 1px; }
+
+    .ig-diff { display: flex; flex-direction: column; gap: 4px; }
+    .ig-diff-row { display: flex; gap: 10px; font-size: 11.5px; }
+    .ig-diff-row b { width: 130px; flex-shrink: 0; color: #0f2c5c; }
+
+    .ig-band {
+      background: #0f2c5c;
+      color: #fff;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .ig-week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+    @media (max-width: 720px) { .ig-week { grid-template-columns: repeat(4, 1fr); } }
+    .ig-week-day { background: #fff; border: 1px solid #dde3ee; border-radius: 10px; padding: 10px 6px; text-align: center; }
+    .ig-week-day.rest { background: #f6f8fc; opacity: 0.75; }
+    .ig-wd-name  { font-size: 11px; font-weight: 800; color: #64748b; }
+    .ig-wd-emoji { font-size: 20px; margin: 5px 0 4px; }
+    .ig-wd-what  { font-size: 11.5px; font-weight: 700; line-height: 1.3; }
+    .ig-wd-sub   { font-size: 10px; color: #64748b; margin-top: 2px; }
+
+    .ig-days { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+    .ig-day  { background: #fff; border: 1px solid #dde3ee; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .ig-day-head { padding: 9px 12px; font-weight: 800; font-size: 12px; color: #fff; }
+    .ig-day-head small { display: block; font-weight: 600; opacity: 0.85; font-size: 10.5px; }
+    .ig-day-head.blue   { background: #2563eb; }
+    .ig-day-head.green  { background: #16a34a; }
+    .ig-day-head.red    { background: #dc2626; }
+    .ig-day-head.orange { background: #ea580c; }
+    .ig-list { list-style: none; padding: 9px 12px 12px; margin: 0; display: flex; flex-direction: column; gap: 5px; }
+    .ig-ex { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+    .ig-ex .n { font-weight: 600; }
+    .ig-ex .s { color: #475569; font-size: 11px; white-space: nowrap; font-weight: 700; }
+    .ig-ex.bone { background: #e9f9f2; margin: 0 -6px; padding: 3px 6px; border-radius: 6px; }
+    .ig-block-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #0d9668; margin-top: 4px; }
+    .ig-note { margin: 0 12px 12px; background: #fdf1f1; border: 1px dashed #ef9a9a; border-radius: 8px; padding: 6px 9px; font-size: 11px; color: #b91c1c; font-weight: 600; }
+
+    .ig-flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #334155; }
+    .ig-flow .step { background: #fff; border: 1px solid #dde3ee; border-radius: 8px; padding: 6px 10px; }
+    .ig-flow .arr  { color: #94a3b8; }
+
+    .ig-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+    .ig-h { font-size: 12px; font-weight: 800; color: #0f2c5c; margin-bottom: 7px; }
+    .ig-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; color: #334155; }
+    .ig-quote { text-align: center; font-style: italic; font-weight: 600; color: #0f2c5c; font-size: 12.5px; padding: 2px 0 4px; }
 
     /* ── MODAL ── */
     .modal-overlay {
@@ -912,42 +969,200 @@
   </div>
 </div>
 
-<!-- ── WEEKLY PLAN OVERLAY ── -->
+<!-- ── PLAN INFOGRAPHIC OVERLAY ── -->
 <div class="modal-overlay" id="planOverlay">
-  <div class="modal-panel" style="width: min(560px, 100%);">
+  <div class="modal-panel" style="width: min(1040px, 100%);">
     <div class="modal-header">
-      <h2 class="modal-title">Haftalık Düzen — 4 Gün</h2>
+      <h2 class="modal-title">Haftalık Antrenman Planı — v3</h2>
       <button class="modal-close" id="planClose">✕</button>
     </div>
-    <div class="week-table">
-      <div class="week-row">
-        <span class="week-day">PZT</span>
-        <div><div class="week-what">🔵 Upper A — İtme (Push)</div><div class="week-note">Kapanış: 🦴 Core / Pelvis kontrolü</div></div>
+    <div class="ig-wrap">
+
+      <div class="ig-card">
+        <div class="ig-title">İLERİ SEVİYE ATLETİK ANTRENMAN PLANI</div>
+        <div class="ig-subtitle">Hipertrofi + Güç + Estetik + Postür</div>
+        <div class="ig-chips">
+          <div class="ig-chip"><b>📅 Düzen</b>Gym: 4 gün/hafta · Squash yok</div>
+          <div class="ig-chip"><b>🎯 Hedef</b>Yağsız kas artışı · Performans &amp; Estetik · Postür düzeltme</div>
+          <div class="ig-chip"><b>📈 Süre</b>6 Aylık Plan · İleri Seviye</div>
+        </div>
       </div>
-      <div class="week-row">
-        <span class="week-day">SAL</span>
-        <div><div class="week-what">🟢 Lower A — Quad Dominant</div><div class="week-note">Kapanış: 🦴 Kalça fleksörü mobilitesi</div></div>
+
+      <div class="ig-card">
+        <div class="ig-h">ÖNCEKİ PLANDAN FARKLAR</div>
+        <div class="ig-diff">
+          <div class="ig-diff-row"><b>Squash</b><span>Bırakıldı — Cuma artık dinlenme günü</span></div>
+          <div class="ig-diff-row"><b>Postür çalışması</b><span>Ayrı bir 5. gün yerine 4 antrenman gününe açılış/kapanış olarak gömüldü</span></div>
+          <div class="ig-diff-row"><b>Postür hacmi</b><span>Korundu — 8 hareketin tamamı hâlâ haftada bir kez yapılıyor</span></div>
+          <div class="ig-diff-row"><b>Session süresi</b><span>Her güne yalnızca +5-10 dk eklendi, toparlanma riske girmez</span></div>
+        </div>
       </div>
-      <div class="week-row rest">
-        <span class="week-day">ÇAR</span>
-        <div><div class="week-what">😴 Dinlenme</div><div class="week-note">Opsiyonel: 20-30dk yürüyüş + foam roll (quad, kalça fleksörü, TFL)</div></div>
+
+      <div class="ig-band">Haftalık Plan (4 Gün Gym)</div>
+      <div class="ig-week">
+        <div class="ig-week-day"><div class="ig-wd-name">PZT</div><div class="ig-wd-emoji">🏋️</div><div class="ig-wd-what" style="color:#2563eb;">Upper A<br>İtme</div><div class="ig-wd-sub">Göğüs · Omuz · Triceps</div></div>
+        <div class="ig-week-day"><div class="ig-wd-name">SAL</div><div class="ig-wd-emoji">🦵</div><div class="ig-wd-what" style="color:#16a34a;">Lower A<br>Quad Dominant</div><div class="ig-wd-sub">Ön Bacak</div></div>
+        <div class="ig-week-day rest"><div class="ig-wd-name">ÇAR</div><div class="ig-wd-emoji">🛌</div><div class="ig-wd-what">Dinlenme</div><div class="ig-wd-sub">Yürüyüş + foam roll (ops.)</div></div>
+        <div class="ig-week-day"><div class="ig-wd-name">PER</div><div class="ig-wd-emoji">💪</div><div class="ig-wd-what" style="color:#dc2626;">Upper B<br>Çekiş</div><div class="ig-wd-sub">Sırt · Biceps · Arka Omuz</div></div>
+        <div class="ig-week-day rest"><div class="ig-wd-name">CUM</div><div class="ig-wd-emoji">🛌</div><div class="ig-wd-what">Dinlenme</div><div class="ig-wd-sub">Eski squash günü</div></div>
+        <div class="ig-week-day"><div class="ig-wd-name">CTS</div><div class="ig-wd-emoji">🍑</div><div class="ig-wd-what" style="color:#ea580c;">Lower B<br>Posterior Chain</div><div class="ig-wd-sub">Arka Bacak · Kalça</div></div>
+        <div class="ig-week-day rest"><div class="ig-wd-name">PAZ</div><div class="ig-wd-emoji">🛌</div><div class="ig-wd-what">Dinlenme</div><div class="ig-wd-sub">Tam toparlanma</div></div>
       </div>
-      <div class="week-row">
-        <span class="week-day">PER</span>
-        <div><div class="week-what">🔴 Upper B — Çekiş (Pull)</div><div class="week-note">Açılış: 🦴 Omurga mobilitesi (Cat-Cow, Bird Dog)</div></div>
+
+      <div class="ig-days">
+        <div class="ig-day">
+          <div class="ig-day-head blue">PZT / UPPER A — İTME<small>Göğüs · Omuz · Triceps</small></div>
+          <ul class="ig-list">
+            <li class="ig-ex"><span class="n">1. Barbell Bench Press</span><span class="s">4×5–6</span></li>
+            <li class="ig-ex"><span class="n">2. Incline Dumbbell Press</span><span class="s">3×8–10</span></li>
+            <li class="ig-ex"><span class="n">3. Seated DB Shoulder Press</span><span class="s">4×8–10</span></li>
+            <li class="ig-ex"><span class="n">4. Cable Fly (Low-to-High)</span><span class="s">3×12–15</span></li>
+            <li class="ig-ex"><span class="n">5. Lateral Raise</span><span class="s">4×15–20</span></li>
+            <li class="ig-ex"><span class="n">6. Overhead Triceps Ext.</span><span class="s">3×12–15</span></li>
+            <li class="ig-ex"><span class="n">7. Triceps Pushdown</span><span class="s">3×12–15</span></li>
+            <li class="ig-ex"><span class="n">8. Ab Wheel / Plank</span><span class="s">3 set</span></li>
+            <li class="ig-block-label">🦴 Kapanış — Core / Pelvis</li>
+            <li class="ig-ex bone"><span class="n">Dead Bug</span><span class="s">3×12 · taraf</span></li>
+            <li class="ig-ex bone"><span class="n">Pelvic Tilt (Post. Hold)</span><span class="s">3×20sn</span></li>
+          </ul>
+          <div class="ig-note">Her 2 haftada bir: Cable External Rotation 2×15–20 (en sona ekle)</div>
+        </div>
+        <div class="ig-day">
+          <div class="ig-day-head green">SAL / LOWER A — QUAD DOMINANT<small>Ön Bacak</small></div>
+          <ul class="ig-list">
+            <li class="ig-ex"><span class="n">1. Barbell Back Squat</span><span class="s">4×5–6</span></li>
+            <li class="ig-ex"><span class="n">2. Leg Press</span><span class="s">3×12–15</span></li>
+            <li class="ig-ex"><span class="n">3. Bulgarian Split Squat</span><span class="s">3×8–10</span></li>
+            <li class="ig-ex"><span class="n">4. Leg Extension</span><span class="s">3×15–20</span></li>
+            <li class="ig-ex"><span class="n">5. Standing Calf Raise</span><span class="s">4×15–20</span></li>
+            <li class="ig-ex"><span class="n">6. Hanging Leg Raise</span><span class="s">3×10–15</span></li>
+            <li class="ig-ex"><span class="n">7. Cable Crunch</span><span class="s">3×15–20</span></li>
+            <li class="ig-block-label">🦴 Kapanış — Kalça Fleksörü</li>
+            <li class="ig-ex bone"><span class="n">Couch Stretch</span><span class="s">3×60sn · taraf</span></li>
+            <li class="ig-ex bone"><span class="n">90/90 Hip Stretch</span><span class="s">2×45sn · taraf</span></li>
+          </ul>
+        </div>
+        <div class="ig-day">
+          <div class="ig-day-head red">PER / UPPER B — ÇEKİŞ<small>Sırt · Biceps · Arka Omuz</small></div>
+          <ul class="ig-list">
+            <li class="ig-block-label" style="margin-top:0;">🦴 Açılış — Omurga Mobilitesi</li>
+            <li class="ig-ex bone"><span class="n">Cat-Cow</span><span class="s">2×10</span></li>
+            <li class="ig-ex bone"><span class="n">Bird Dog</span><span class="s">3×10 · taraf</span></li>
+            <li class="ig-ex"><span class="n">1. Weighted Pull-up</span><span class="s">4×4–6</span></li>
+            <li class="ig-ex"><span class="n">2. Barbell Row</span><span class="s">4×6–8</span></li>
+            <li class="ig-ex"><span class="n">3. Chest Supported Row (DB)</span><span class="s">3×10–12</span></li>
+            <li class="ig-ex"><span class="n">4. Lat Pulldown (Wide Grip)</span><span class="s">3×10–12</span></li>
+            <li class="ig-ex"><span class="n">5. Face Pull</span><span class="s">3×15–20</span></li>
+            <li class="ig-ex"><span class="n">6. Barbell Curl</span><span class="s">3×8–10</span></li>
+            <li class="ig-ex"><span class="n">7. Incline DB Curl</span><span class="s">3×10–12</span></li>
+            <li class="ig-ex"><span class="n">8. Hammer Curl</span><span class="s">2×12–15</span></li>
+          </ul>
+          <div class="ig-note">Her 2 haftada bir: Cable External Rotation 2×15–20 (en sona ekle)</div>
+        </div>
+        <div class="ig-day">
+          <div class="ig-day-head orange">CTS / LOWER B — POSTERIOR CHAIN<small>Arka Bacak · Kalça</small></div>
+          <ul class="ig-list">
+            <li class="ig-block-label" style="margin-top:0;">🦴 Açılış — Glute Aktivasyon</li>
+            <li class="ig-ex bone"><span class="n">Glute Bridge (İzometrik)</span><span class="s">2×30sn</span></li>
+            <li class="ig-ex"><span class="n">1. Romanian Deadlift</span><span class="s">4×6–8</span></li>
+            <li class="ig-ex"><span class="n">2. Hip Thrust (Barbell)</span><span class="s">4×10–12</span></li>
+            <li class="ig-ex"><span class="n">3. Leg Curl (Seated)</span><span class="s">4×10–12</span></li>
+            <li class="ig-ex"><span class="n">4. Walking Lunge</span><span class="s">3×12 adım</span></li>
+            <li class="ig-ex"><span class="n">5. Seated Calf Raise</span><span class="s">4×15–20</span></li>
+            <li class="ig-ex"><span class="n">6. Back Ext. / Reverse Hyper</span><span class="s">3×12–15</span></li>
+            <li class="ig-ex"><span class="n">7. Oblique Cable Crunch</span><span class="s">3×15 · taraf</span></li>
+            <li class="ig-block-label">🦴 Kapanış — Kalça Fleksörü</li>
+            <li class="ig-ex bone"><span class="n">Kalça Fleksörü Stretch</span><span class="s">2×60sn · taraf</span></li>
+          </ul>
+        </div>
       </div>
-      <div class="week-row rest">
-        <span class="week-day">CUM</span>
-        <div><div class="week-what">😴 Dinlenme</div><div class="week-note">Eski squash günü — opsiyonel foam roll + hafif esneme</div></div>
+
+      <div class="ig-band">Egzersiz Sıralama Prensibi</div>
+      <div class="ig-flow">
+        <span class="step">🦴 Açılış Mobilite</span><span class="arr">→</span>
+        <span class="step">1. Heavy Compound</span><span class="arr">→</span>
+        <span class="step">2. Secondary Compound</span><span class="arr">→</span>
+        <span class="step">3. İzolasyon</span><span class="arr">→</span>
+        <span class="step">4. Küçük Kaslar</span><span class="arr">→</span>
+        <span class="step">5. Core</span><span class="arr">→</span>
+        <span class="step">6. Prehab</span><span class="arr">→</span>
+        <span class="step">🦴 Kapanış Postür</span>
       </div>
-      <div class="week-row">
-        <span class="week-day">CTS</span>
-        <div><div class="week-what">🟠 Lower B — Posterior Chain</div><div class="week-note">Açılış: 🦴 Glute aktivasyon · Kapanış: kalça fleksörü stretch</div></div>
+
+      <div class="ig-grid">
+        <div class="ig-card">
+          <div class="ig-h">📈 PROGRESSIVE OVERLOAD (ÇİFT PROGRESSION)</div>
+          <ul>
+            <li>1️⃣ Tekrar aralığının üst sınırını tüm setlerde tamamla.</li>
+            <li>2️⃣ Sonraki hafta +2.5 kg ekle, tekrar alt sınırdan başla.</li>
+            <li>3️⃣ Üst sınıra ulaş → tekrar artır → döngü.</li>
+            <li style="margin-top:4px;"><b>ÖRNEK</b> Bench 4×5–6: Hf1 80kg 6,5,5,5 · Hf2 6,6,6,5 · Hf3 6,6,6,6 · Hf4 82.5kg</li>
+          </ul>
+        </div>
+        <div class="ig-card">
+          <div class="ig-h">🍽️ BESLENME (YAĞSIZ KAS)</div>
+          <ul>
+            <li>🥩 Protein: 1.8–2.2 g/kg</li>
+            <li>🍚 Karbonhidrat: antrenman saatine yakın</li>
+            <li>🥑 Yağ: toplam kalorinin %25–30'u</li>
+            <li>💧 Su: 3–4 litre/gün</li>
+            <li>⏱️ Öncesi (1–1.5 saat): yulaf + yumurta veya pilav + tavuk</li>
+            <li>⏱️ Sonrası (30 dk içinde): whey + muz / pirinç</li>
+          </ul>
+        </div>
+        <div class="ig-card">
+          <div class="ig-h">📋 TAKİP PROTOKOLÜ (HER 4 HAFTADA BİR)</div>
+          <ul>
+            <li>✅ Sabah aç karnına vücut ağırlığı</li>
+            <li>✅ Tanita: yağ %, kas kütlesi, metabolik yaş</li>
+            <li>✅ Sol &amp; sağ bacak kütlesi (asimetri kontrolü)</li>
+            <li>✅ Çevreler: bel, göğüs, omuz, kol, baldır</li>
+            <li>✅ Performans: max Squat, Bench, Deadlift, Pull-up</li>
+          </ul>
+        </div>
+        <div class="ig-card">
+          <div class="ig-h">🏆 6 AYLIK HEDEFLER</div>
+          <ul>
+            <li>🎯 Vücut yağ oranı ~%15.8 → %12–14</li>
+            <li>🎯 Squat 1RM +20–30 kg</li>
+            <li>🎯 Bench Press 1RM +15–25 kg</li>
+            <li>🎯 Weighted Pull-up +10–15 kg</li>
+            <li>🎯 Bacak asimetrisi → max 0.2 kg fark</li>
+            <li>🎯 Anterior pelvic tilt'te gözle görülür düzelme</li>
+          </ul>
+        </div>
+        <div class="ig-card">
+          <div class="ig-h">🔋 DELOAD (HER 4–6 HAFTADA BİR)</div>
+          <ul>
+            <li>• Ağırlıkları %60'a düşür</li>
+            <li>• Setleri %30–40 azalt (3 → 2 set)</li>
+            <li>• Failure'a gitme</li>
+            <li>• Amaç: CNS toparlanması &amp; performans reseti</li>
+          </ul>
+        </div>
+        <div class="ig-card">
+          <div class="ig-h">⚠️ DİKKAT EDİLECEK NOKTALAR</div>
+          <ul>
+            <li>❌ Her hafta program değiştirme</li>
+            <li>❌ Sürekli failure çalışmak</li>
+            <li>❌ Yetersiz protein almak</li>
+            <li>❌ Az uyku &amp; log tutmamak</li>
+            <li>❌ Postür bloklarını atlamak</li>
+          </ul>
+        </div>
+        <div class="ig-card">
+          <div class="ig-h">✅ GENEL KURALLAR</div>
+          <ul>
+            <li>✔️ Uyku: 7.5+ saat</li>
+            <li>✔️ Protein hedefini atlayan gün olmasın</li>
+            <li>✔️ Her tekrarın kalitesine odaklan</li>
+            <li>✔️ Sabırlı ol, sürece güven</li>
+          </ul>
+        </div>
       </div>
-      <div class="week-row rest">
-        <span class="week-day">PAZ</span>
-        <div><div class="week-what">😴 Tam Dinlenme</div><div class="week-note">İstersen hafif esneme</div></div>
-      </div>
+
+      <div class="ig-quote">“Disiplinli plan + doğru beslenme + yeterli uyku = sürdürülebilir gelişim.”</div>
+
     </div>
   </div>
 </div>
