@@ -13,10 +13,18 @@ Bu dosya, projenin frontend (GitHub Pages) ve backend (Oracle Cloud) altyapısı
 
 ## 2. Frontend Detayları (`my_workout.html`)
 
+### Program Yapısı (PLAN objesi)
+- Program, dosya içindeki `PLAN` objesinde 4 gün olarak tanımlıdır: `upperA` (Pzt), `lowerA` (Sal), `upperB` (Per), `lowerB` (Cts). Squash günü kaldırılmıştır; postür/mobilite çalışması günlere açılış (warm-up) ve kapanış (finisher) blokları olarak gömülüdür.
+- Egzersiz kayıtlarındaki opsiyonel alanlar: `section` (o karttan önce grid'e tam genişlikte bölüm başlığı basılır), `posture` (🦴 postür rozeti), `warmup` (kart numarası yerine 🦴 gösterilir, ana numaralandırmaya girmez), `cycle` (2 haftada bir rozeti; haftalık egzersiz sayımına dahil edilmez).
+- `EXERCISES_RAW` içindeki veriler `data/exercises.json`'dan alınmış, sadece kullanılan alanlara kırpılmıştır (`instruction_steps` yalnızca `en`+`tr`; `it`/`es` çevirileri, `instructions` paragrafları ve `created_at` gömülmez).
+- **Sonradan eklenen egzersizler:** `cat-cow` (id 5202) ve `bird dog` (id 5203) veri setinde yoktu; GIF'leri ExerciseDB stilinde bulunup `videos/` ve `images/` klasörlerine veri seti adlandırma kuralıyla (`{id}-{suffix}`) eklendi, `data/exercises.json`'a 4 dilli tam kayıt olarak alfabetik konumlarına yerleştirildi. Frontend'de diğer egzersizlerden hiçbir farkları yoktur.
+- **Medya URL'leri görecelidir:** Kart görselleri, GIF'ler ve modal medyası `raw.githubusercontent.com` yerine göreceli yollarla (`images/...`, `videos/...`) yüklenir — GitHub Pages aynı repoyu servis ettiği için üretimde de, lokal `python -m http.server` ile de çalışır.
+- "Haftalık Düzen" butonu eski `workout_new.png` görseli yerine HTML tabanlı haftalık tablo modalını (`.week-table`) açar; eski PNG'ler ve eski üretim scriptleri (`build_html.py`, `fix_html.py`, `refactor.py`, `template_dump.html`, `workout_exercises_data.json`) repodan silinmiştir — `my_workout.html` elle geliştirilen tek kaynaktır (source of truth).
+
 ### Arayüz Elementleri ve Notlar Modülü
 - Her egzersiz için modal (popup) ekranında bir "Notlar" bölümü yer alır.
 - **Serbest Not Alanı:** Kullanıcının egzersiz hakkında uzun notlar alabileceği gizlenip açılabilen bir `<textarea>` alanıdır.
-- **Set/Kg/Tekrar Girişleri:** `exercises_data.json` içerisindeki "3x10-12" gibi dinamik set yapılarını algılayıp, o set sayısına göre otomatik input satırları (Row) oluşturur.
+- **Set/Kg/Tekrar Girişleri:** `PLAN` objesindeki "3×10–12" gibi set metnini `parseInt` ile algılayıp, o set sayısına göre otomatik input satırları (Row) oluşturur (süre bazlı "3×60sn" gibi değerlerde de set sayısı doğru çözülür).
 
 ### JavaScript Fonksiyonları (Core Logic)
 - `fetchNotes(exercise_id, setsString)`: Egzersiz modal'ı açıldığında çağrılır. `exercise_id` parametresi ile backend'den verileri getirir. **Race Condition** koruması mevcuttur (Eğer istek yanıtlanmadan kullanıcı başka bir egzersize tıklarsa, eski yanıt yoksayılır: `if (currentExerciseId !== exercise_id) return;`).
